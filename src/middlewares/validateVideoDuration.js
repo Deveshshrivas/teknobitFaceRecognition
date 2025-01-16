@@ -44,6 +44,8 @@ async function validateVideoDuration(req, res, next) {
     try {
         const duration = await getVideoDuration(req.file.path);
         if (duration > 30) {
+            // Delete the uploaded profile video file if duration exceeds 30 seconds
+            fs.unlinkSync(req.file.path);
             return res.status(400).json({ message: "Profile video must be 30 seconds or less." });
         }
         next();
