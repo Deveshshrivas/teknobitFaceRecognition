@@ -5,10 +5,10 @@ dotenv.config();
 
 const connectDB = async () => {
     try {
+        mongoose.set('strictQuery', true); // Suppress the strictQuery warning
         await mongoose.connect(process.env.DATABASE_URL, { 
             useNewUrlParser: true, 
-            useUnifiedTopology: true,
-            useCreateIndex: true 
+            useUnifiedTopology: true 
         });
         console.log('MongoDB connected');
     } catch (err) {
