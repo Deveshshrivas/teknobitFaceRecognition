@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors'); // Import the cors package
 const signupRoutes = require('./routes/signupRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const profileRoutes = require('./routes/profileRoutes');
@@ -12,6 +13,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Middleware
+app.use(cors()); // Enable CORS
 app.use(bodyParser.json());
 
 // Routes
