@@ -145,3 +145,5 @@ dist
 
 
 uploads/
+*uploads
+uploads/*
