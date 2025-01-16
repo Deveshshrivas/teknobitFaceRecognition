@@ -1,6 +1,7 @@
 const express = require('express');
 const connectDB = require('./config/db');
 const signupRoutes = require('./routes/signupRoutes');
+const cors = require('cors');
 
 const app = express();
 
@@ -8,6 +9,7 @@ const app = express();
 connectDB();
 
 // Middleware
+app.use(cors()); // Enable CORS
 app.use(express.json());
 app.use('/uploads', express.static('uploads'));
 
