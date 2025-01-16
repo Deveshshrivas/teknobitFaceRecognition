@@ -1,20 +1,31 @@
 const express = require('express');
-const connectDB = require('./config/db');
+const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 const signupRoutes = require('./routes/signupRoutes');
-const cors = require('cors');
+const loginRoutes = require('./routes/loginRoutes');
+const profileRoutes = require('./routes/profileRoutes');
+const dotenv = require('dotenv');
+
+dotenv.config();
 
 const app = express();
-
-// Connect to MongoDB
-connectDB();
+const port = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors()); // Enable CORS
-app.use(express.json());
-app.use('/uploads', express.static('uploads'));
+app.use(bodyParser.json());
 
 // Routes
 app.use('/api/signup', signupRoutes);
+app.use('/api/login', loginRoutes);
+app.use('/api/profile', profileRoutes);
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// Connect to MongoDB
+mongoose.set('strictQuery', true); // Suppress the strictQuery warning
+mongoose.connect(process.env.DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.error('MongoDB connection error:', err));
+
+// Start the server
+app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+});
