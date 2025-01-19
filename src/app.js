@@ -6,6 +6,7 @@ const signupRoutes = require('./routes/signupRoutes');
 const loginRoutes = require('./routes/loginRoutes');
 const profileRoutes = require('./routes/profileRoutes');
 const photoRoutes = require('./routes/photoRoutes'); // Import the photoRoutes
+const videoRoutes = require('./routes/videoRoutes'); // Import the videoRoutes
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -22,6 +23,7 @@ app.use('/api/signup', signupRoutes);
 app.use('/api/login', loginRoutes);
 app.use('/api/profile', profileRoutes);
 app.use('/api/photos', photoRoutes); // Use the photoRoutes
+app.use('/api/videos', videoRoutes); // Use the videoRoutes
 
 // Connect to MongoDB
 mongoose.set('strictQuery', true); // Suppress the strictQuery warning

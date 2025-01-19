@@ -23,6 +23,7 @@ const upload = multer({ storage: storage });
 class PhotoController {
     constructor() {
         this.uploadPhoto = this.uploadPhoto.bind(this);
+        this.getPhotosByUserId = this.getPhotosByUserId.bind(this);
     }
 
     async uploadPhoto(req, res) {
@@ -49,6 +50,18 @@ class PhotoController {
             res.status(200).json({ message: "Photo uploaded successfully.", photo });
         } catch (error) {
             console.error('Error during photo upload:', error);
+            res.status(500).json({ message: "Server error", error: error.message });
+        }
+    }
+
+    async getPhotosByUserId(req, res) {
+        const userId = req.params.userId;
+
+        try {
+            const photos = await Photo.find({ userId: userId });
+            res.status(200).json(photos);
+        } catch (error) {
+            console.error('Error fetching photos:', error);
             res.status(500).json({ message: "Server error", error: error.message });
         }
     }
